@@ -26,7 +26,8 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->unique(ignoreRecord: true),
-                Forms\Components\TextInput::make('price')->required()
+                Forms\Components\TextInput::make('price')
+                    ->required()
             ]);
     }
 
@@ -39,7 +40,10 @@ class ProductResource extends Resource
                 ->searchable(isIndividual: true, isGlobal: false),
                 Tables\Columns\TextColumn::make('price')
                 ->sortable()
-                ->searchable(isIndividual: true, isGlobal: false),
+                ->money('gel')
+                ->getStateUsing(function (Product $item):float{
+                    return $item->price / 100;
+                }),
             ])
             ->defaultSort('id', 'desc')
             ->filters([
