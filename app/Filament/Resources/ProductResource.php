@@ -55,6 +55,7 @@ class ProductResource extends Resource
                     return $item->price / 100;
                 }),
                 Tables\Columns\TextColumn::make('category.name'),
+                Tables\Columns\TextColumn::make('tags.name'),
                 Tables\Columns\TextColumn::make('status')
             ])
             ->defaultSort('id', 'desc')
